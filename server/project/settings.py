@@ -69,7 +69,9 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [                                 # new
         'rest_framework.authentication.SessionAuthentication',        # new
         'rest_framework_simplejwt.authentication.JWTAuthentication',  # new
+
     ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', #new
     }
 
 ROOT_URLCONF = 'project.urls'
