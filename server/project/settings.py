@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import environ
+import os
 from pathlib import Path
 
 
@@ -40,9 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',  # new
+    'corsheaders',  # new
+    'auth_boilerplate',  # new
+    'jwtauth',  # new
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +58,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Allows any client access.
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated', ],
+    'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser', ],
+    # 'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer', ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [                                 # new
+        'rest_framework.authentication.SessionAuthentication',        # new
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # new
+    ],
+    }
 
 ROOT_URLCONF = 'project.urls'
 
